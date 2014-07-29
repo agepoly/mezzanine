@@ -70,6 +70,8 @@ def ipn(request):
         payement.is_valid = status_ok
         payement.save()
 
+        # TODO Send mail here
+
     return HttpResponse('')
 
 
