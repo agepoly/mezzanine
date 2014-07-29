@@ -1,13 +1,19 @@
 {% extends "pages/page.html" %}
 
 {% load mezzanine_tags %}
+{% load i18n %}
 
 {% block main %}
 {{ block.super }}
 {% if request.GET.sent %}
     {% editable page.form.response %}
-    {{ page.form.response|richtext_filters|safe }}
+        {{ page.form.response|richtext_filters|safe }}
     {% endeditable %}
+
+    {% if page.form.need_payement %}
+        <a href="{% url 'mezzanine.forms.views.start_payement' request.GET.entry_id %}" class="btn btn-primary">{% trans "Go to payement" %}</a>
+    {% endif %}
+
 {% else %}
     {% with page.form as page_form %}
     {% editable page_form.content %}

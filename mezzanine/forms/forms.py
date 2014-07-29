@@ -324,6 +324,10 @@ class EntriesForm(forms.Form):
                   if self.cleaned_data["field_%s_export" % f.id]]
         if self.cleaned_data["field_0_export"]:
             fields.append(self.entry_time_name)
+
+        if self.form.need_payement:
+            fields.append('Payement')
+
         return fields
 
     def rows(self, csv=False):
@@ -369,16 +373,25 @@ class EntriesForm(forms.Form):
         valid_row = True
         for field_entry in field_entries:
             if field_entry.entry_id != current_entry:
+
+                if field_entry.entry.form.need_payement:
+                    bonus = 1
+                else:
+                    bonus = 0
+
                 # New entry, write out the current row and start a new one.
                 if valid_row and current_row is not None:
                     if not csv:
                         current_row.insert(0, current_entry)
                     yield current_row
                 current_entry = field_entry.entry_id
-                current_row = [""] * num_columns
+                current_row = [""] * (num_columns + bonus)
                 valid_row = True
                 if include_entry_time:
-                    current_row[-1] = field_entry.entry.entry_time
+                    current_row[-1 - (bonus)] = field_entry.entry.entry_time
+
+                if field_entry.entry.form.need_payement:
+                    current_row[-1] = field_entry.entry.get_payement().is_valid
             field_value = field_entry.value or ""
             # Check for filter.
             field_id = field_entry.field_id

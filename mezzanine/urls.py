@@ -57,6 +57,7 @@ if getattr(settings, "DEBUG", False):
 urlpatterns += patterns("",
     ("^", include("mezzanine.core.urls")),
     ("^", include("mezzanine.generic.urls")),
+    ("^forms/", include("mezzanine.forms.urls")),
 )
 
 # Mezzanine's Accounts app

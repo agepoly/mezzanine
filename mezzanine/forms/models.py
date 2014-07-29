@@ -36,20 +36,16 @@ class Form(Page, RichText):
                     "a message here that will be included in the email."))
 
     need_payement = models.BooleanField(_('Need payement'), default=False, help_text=_('Forms must be confirmed with a payement'))
-    ammount = models.PositiveIntegerField(_('Ammount'), default=0, help_text=_('In CHF'))
+    amount = models.PositiveIntegerField(_('Amount'), default=0, help_text=_('In CHF'))
     maximum_payable_forms = models.PositiveIntegerField(_('Maximum payed form entries'), default=0, help_text=_('Only used with payement'))
 
     final_confirmation = models.TextField(_('Final confirmation'), help_text=_("Final text after the user has paid for the form"), blank=True)
     final_confirmation_message = models.TextField(_('Final confirmation email'), help_text=_("Message for the email to send to the user when he has paid for the form. Leave blank to not send a email."), blank=True)
     final_confirmation_subject = models.CharField(_('Final confirmation subject'), max_length=200, help_text=_("Subject for the email to send to the user when he has paid for the form"), blank=True)
 
-    def get_payement(self):
-        """Return the payement object"""
-        return Payement.objects.get_or_create(form=self)
-
-    def is_payement_valid(self):
-        """Return true if the form has a valid payement"""
-        return self.get_payement().is_valid
+    def can_start_payement(self):
+        """Return true if the user can pay"""
+        return True
 
     class Meta:
         verbose_name = _("Form")
@@ -134,6 +130,15 @@ class FormEntry(models.Model):
     form = models.ForeignKey("Form", related_name="entries")
     entry_time = models.DateTimeField(_("Date/time"))
 
+    def get_payement(self):
+        """Return the payement object"""
+        p, _ = Payement.objects.get_or_create(form=self)
+        return p
+
+    def is_payement_valid(self):
+        """Return true if the form has a valid payement"""
+        return self.get_payement().is_valid
+
     class Meta:
         verbose_name = _("Form entry")
         verbose_name_plural = _("Form entries")
@@ -157,8 +162,9 @@ class FieldEntry(models.Model):
 class Payement(models.Model):
     """A payement for a form"""
 
-    form = models.ForeignKey(Form)
+    form = models.ForeignKey(FormEntry)
     is_valid = models.BooleanField(default=False)
+    started = models.BooleanField(default=False)
 
     def reference(self):
         """Return a reference for the payement"""

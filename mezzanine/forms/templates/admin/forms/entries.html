@@ -77,9 +77,10 @@
             </td>
             {% endif %}
             {% for field in row %}
-            {% if not forloop.first %}
-            <td{% if forloop.last %} class="last"{% endif %}>{{ field }}</td>
-            {% endif %}
+                {% if not forloop.first %}
+                <td{% if forloop.last %} class="last"{% endif %}>{{ field }}</td>
+                {% endif %}
+
             {% endfor %}
         </tr>
     {% if forloop.last %}

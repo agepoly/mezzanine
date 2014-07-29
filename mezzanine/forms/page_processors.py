@@ -48,6 +48,9 @@ def form_processor(request, page):
             "message": page.form.email_message,
             "request": request,
         }
+
+        url += '&entry_id=' + str(entry.pk)
+
         email_from = page.form.email_from or settings.DEFAULT_FROM_EMAIL
         email_to = form.email_to()
         if email_to and page.form.send_email:
