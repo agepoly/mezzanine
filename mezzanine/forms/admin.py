@@ -34,6 +34,9 @@ form_fieldsets = list(form_fieldsets)
 form_fieldsets.insert(1, (_("Email"), {"fields": ("send_email", "email_from",
     "email_copies", "email_subject", "email_message")}))
 
+form_fieldsets.insert(2, (_("Payement"), {"fields": ("need_payement", "ammount", "maximum_payable_forms",
+    "final_confirmation", "final_confirmation_message", "final_confirmation_subject")}))
+
 
 class FieldAdmin(TabularDynamicInlineAdmin):
     """

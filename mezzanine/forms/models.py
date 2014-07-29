@@ -35,6 +35,14 @@ class Form(Page, RichText):
                     "each of the form fields entered. You can also enter "
                     "a message here that will be included in the email."))
 
+    need_payement = models.BooleanField(_('Need payement'), default=False, help_text=_('Forms must be confirmed with a payement'))
+    ammount = models.PositiveIntegerField(_('Ammount'), default=0, help_text=_('In CHF'))
+    maximum_payable_forms = models.PositiveIntegerField(_('Maximum payed form entries'), default=0, help_text=_('Only used with payement'))
+
+    final_confirmation = models.TextField(_('Final confirmation'), help_text=_("Final text after the user has paid for the form"), blank=True)
+    final_confirmation_message = models.TextField(_('Final confirmation email'), help_text=_("Message for the email to send to the user when he has paid for the form. Leave blank to not send a email."), blank=True)
+    final_confirmation_subject = models.CharField(_('Final confirmation subject'), max_length=200, help_text=_("Subject for the email to send to the user when he has paid for the form"), blank=True)
+
     class Meta:
         verbose_name = _("Form")
         verbose_name_plural = _("Forms")
