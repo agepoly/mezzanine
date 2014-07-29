@@ -43,6 +43,14 @@ class Form(Page, RichText):
     final_confirmation_message = models.TextField(_('Final confirmation email'), help_text=_("Message for the email to send to the user when he has paid for the form. Leave blank to not send a email."), blank=True)
     final_confirmation_subject = models.CharField(_('Final confirmation subject'), max_length=200, help_text=_("Subject for the email to send to the user when he has paid for the form"), blank=True)
 
+    def get_payement(self):
+        """Return the payement object"""
+        return Payement.objects.get_or_create(form=self)
+
+    def is_payement_valid(self):
+        """Return true if the form has a valid payement"""
+        return self.get_payement().is_valid
+
     class Meta:
         verbose_name = _("Form")
         verbose_name_plural = _("Forms")
@@ -144,3 +152,15 @@ class FieldEntry(models.Model):
     class Meta:
         verbose_name = _("Form field entry")
         verbose_name_plural = _("Form field entries")
+
+
+class Payement(models.Model):
+    """A payement for a form"""
+
+    form = models.ForeignKey(Form)
+    is_valid = models.BooleanField(default=False)
+
+    def reference(self):
+        """Return a reference for the payement"""
+
+        return "mezzanine-form-%s" % (self.pk, )
