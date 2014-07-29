@@ -45,6 +45,9 @@ class Form(Page, RichText):
 
     def can_start_payement(self):
         """Return true if the user can pay"""
+
+        if self.entries.filter(payement__is_valid=True).count() >= self.maximum_payable_forms:
+            return False
         return True
 
     class Meta:

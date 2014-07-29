@@ -37,7 +37,7 @@ def start_payement(request, pk):
 
     error = ''
 
-    if not entry.form.can_start_payement:
+    if not entry.form.can_start_payement():
         error = 'form_full'
 
     if payement.started:
@@ -72,3 +72,10 @@ def ipn(request):
 
     return HttpResponse('')
 
+
+def result_ok(request):
+    return render_to_response('forms/ok.html', {}, context_instance=RequestContext(request))
+
+
+def result_err(request):
+    return render_to_response('forms/err.html', {}, context_instance=RequestContext(request))
