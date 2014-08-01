@@ -135,7 +135,7 @@ class FormEntry(models.Model):
 
     def get_payment(self):
         """Return the payment object"""
-        p, _ = Payment.objects.get_or_create(form=self)
+        p, _ = Payment.objects.get_or_create(entry=self)
         return p
 
     def is_payment_valid(self):
@@ -165,7 +165,7 @@ class FieldEntry(models.Model):
 class Payment(models.Model):
     """A payment for a form"""
 
-    form = models.ForeignKey(FormEntry)
+    entry = models.ForeignKey(FormEntry)
     is_valid = models.BooleanField(default=False)
     started = models.BooleanField(default=False)
 
