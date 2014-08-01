@@ -16,6 +16,7 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
+from .fields import EMAIL
 
 
 from .models import Form, FormEntry, Payment
@@ -70,10 +71,33 @@ def ipn(request):
         payment.is_valid = status_ok
         payment.save()
 
-        # TODO Send mail here
+        entry = payment.entry
+
+        subject = payment.entry.form.final_confirmation_subject
+        
+        context = {
+            "message": payment.entry.form.final_confirmation_message,
+        }
+
+        email_from = payment.entry.form.email_from or settings.DEFAULT_FROM_EMAIL
+
+        for field in payment.entry.fields:
+            if field.field_type == EMAIL:
+                email_to = payment.entry.fields.filter(field_id = field.id).first().value
 
 
-
+        if email_to and payment.entry.form.send_email:
+            send_mail_template(subject, "email/form_response", email_from,
+                               email_to, context)
+        headers = None
+        if email_to:
+            # Add the email entered as a Reply-To header
+            headers = {'Reply-To': email_to}
+        email_copies = split_addresses(payment.entry.form.email_copies)
+        if email_copies:
+            send_mail_template(subject, "email/form_response_copies",
+                               email_from, email_copies, context,
+                               attachments=attachments, headers=headers)
     return HttpResponse('')
 
 
