@@ -1,4 +1,4 @@
-{% extends "email/form_response.txt" %}
+{% extends "email/form_response_paid.txt" %}
 
 {% block main %}
 {{ block.super }}

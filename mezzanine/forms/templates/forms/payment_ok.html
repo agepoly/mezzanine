@@ -9,8 +9,12 @@
 <h1>Payment</h1>
 
 <div class="alert alert-success">
-    {% trans "Ok !" %}
+    {{{% trans "Paiement réussi !" %}}}
 </div>
 
-{% endblock %}
+<div>
+	{{final_confirmation_message}}
+</div>
 
+
+{% endblock %}

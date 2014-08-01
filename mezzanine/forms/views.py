@@ -76,7 +76,7 @@ def ipn(request):
         subject = payment.entry.form.final_confirmation_subject
         
         context = {
-            "message": payment.entry.form.final_confirmation_message,
+            "message": payment.entry.form.final_confirmation_email,
         }
 
         email_from = payment.entry.form.email_from or settings.DEFAULT_FROM_EMAIL
@@ -102,8 +102,8 @@ def ipn(request):
 
 
 def result_ok(request):
-    return render_to_response('forms/ok.html', {}, context_instance=RequestContext(request))
+    return render_to_response('forms/payment_ok.html', {'final_confirmation_message': final_confirmation_message}, context_instance=RequestContext(request))
 
 
 def result_err(request):
-    return render_to_response('forms/err.html', {}, context_instance=RequestContext(request))
+    return render_to_response('forms/payment_error.html', {}, context_instance=RequestContext(request))

@@ -10,15 +10,14 @@
 
 <div class="alert alert-error">
     {% if error == "form_full" %}
-        Form full
+        {% trans "Form full" %}
     {% endif %}
     {% if error == "payment_started" %}
-        Payment started
+        {% trans "Payment started" %}
     {% endif %}
     {% if error == "payment_already_ok" %}
-        Payment already ok
+        {% trans "Payment already ok" %}
     {% endif %}
 </div>
 
 {% endblock %}
-
