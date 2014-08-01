@@ -10,7 +10,7 @@ page_processors.autodiscover()
 
 # Page patterns.
 urlpatterns = patterns("mezzanine.forms.views",
-    url("^start_payment/(?P<pk>[0-9]?)$", "start_payment"),
+    url("^start_payment/(?P<pk>[0-9]+)$", "start_payment"),
     url("^ipn$", "ipn"),
     url("^ok$", "result_ok"),
     url("^err$", "result_err"),
