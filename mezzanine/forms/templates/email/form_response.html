@@ -8,6 +8,11 @@
     <td><b>{{ field }}:</b></td>
     <td>{{ value|linebreaks }}</td>
 </tr>
+
+    {% if page.form.need_payment %}
+        <a href="{% url 'mezzanine.forms.views.start_payment' request.GET.entry_id %}" class="btn btn-primary">{% trans "Link to payment page in case you lost it." %}</a>
+    {% endif %}
+
 {% endfor %}
 </table>
 {% endblock %}

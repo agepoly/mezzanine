@@ -55,7 +55,7 @@ def start_payment(request, pk):
     else:
         payment.started = True
         payment.save()
-        request.session["current_payment"] = payment
+        request.session["current_payment"] = payment.id
         return HttpResponseRedirect(url)
 
 
@@ -88,7 +88,7 @@ def ipn(request):
 
 
         if email_to and payment.entry.form.send_email:
-            send_mail_template(subject, "email/form_response", email_from,
+            send_mail_template(subject, "email/form_response_paid", email_from,
                                email_to, context)
         headers = None
         if email_to:
@@ -96,14 +96,14 @@ def ipn(request):
             headers = {'Reply-To': email_to}
         email_copies = split_addresses(payment.entry.form.email_copies)
         if email_copies:
-            send_mail_template(subject, "email/form_response_copies",
+            send_mail_template(subject, "email/form_response_copies_paid",
                                email_from, email_copies, context,
                                attachments=attachments, headers=headers)
     return HttpResponse('')
 
 
 def result_ok(request):
-    return render_to_response('forms/payment_ok.html', {'final_confirmation_message': request.session["current_payment"].entry.form.final_confirmation_message}, context_instance=RequestContext(request))
+    return render_to_response('forms/payment_ok.html', {'final_confirmation_message': Payment.objects.get(pk=request.session["current_payment"]).entry.form.final_confirmation_message}, context_instance=RequestContext(request))
 
 
 def result_err(request):
