@@ -35,18 +35,18 @@ class Form(Page, RichText):
                     "each of the form fields entered. You can also enter "
                     "a message here that will be included in the email."))
 
-    need_payement = models.BooleanField(_('Need payement'), default=False, help_text=_('Forms must be confirmed with a payement'))
+    need_payment = models.BooleanField(_('Need payment'), default=False, help_text=_('Forms must be confirmed with a payment'))
     amount = models.PositiveIntegerField(_('Amount'), default=0, help_text=_('In CHF'))
-    maximum_payable_forms = models.PositiveIntegerField(_('Maximum payed form entries'), default=0, help_text=_('Only used with payement'))
+    maximum_payable_forms = models.PositiveIntegerField(_('Maximum payed form entries'), default=0, help_text=_('Only used with payment'))
 
     final_confirmation = models.TextField(_('Final confirmation'), help_text=_("Final text after the user has paid for the form"), blank=True)
     final_confirmation_message = models.TextField(_('Final confirmation email'), help_text=_("Message for the email to send to the user when he has paid for the form. Leave blank to not send a email."), blank=True)
     final_confirmation_subject = models.CharField(_('Final confirmation subject'), max_length=200, help_text=_("Subject for the email to send to the user when he has paid for the form"), blank=True)
 
-    def can_start_payement(self):
+    def can_start_payment(self):
         """Return true if the user can pay"""
 
-        if self.entries.filter(payement__is_valid=True).count() >= self.maximum_payable_forms:
+        if self.entries.filter(payment__is_valid=True).count() >= self.maximum_payable_forms:
             return False
         return True
 
@@ -133,14 +133,14 @@ class FormEntry(models.Model):
     form = models.ForeignKey("Form", related_name="entries")
     entry_time = models.DateTimeField(_("Date/time"))
 
-    def get_payement(self):
-        """Return the payement object"""
-        p, _ = Payement.objects.get_or_create(form=self)
+    def get_payment(self):
+        """Return the payment object"""
+        p, _ = Payment.objects.get_or_create(form=self)
         return p
 
-    def is_payement_valid(self):
-        """Return true if the form has a valid payement"""
-        return self.get_payement().is_valid
+    def is_payment_valid(self):
+        """Return true if the form has a valid payment"""
+        return self.get_payment().is_valid
 
     class Meta:
         verbose_name = _("Form entry")
@@ -162,14 +162,14 @@ class FieldEntry(models.Model):
         verbose_name_plural = _("Form field entries")
 
 
-class Payement(models.Model):
-    """A payement for a form"""
+class Payment(models.Model):
+    """A payment for a form"""
 
     form = models.ForeignKey(FormEntry)
     is_valid = models.BooleanField(default=False)
     started = models.BooleanField(default=False)
 
     def reference(self):
-        """Return a reference for the payement"""
+        """Return a reference for the payment"""
 
         return "mezzanine-form-%s" % (self.pk, )

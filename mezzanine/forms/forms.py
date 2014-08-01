@@ -325,8 +325,8 @@ class EntriesForm(forms.Form):
         if self.cleaned_data["field_0_export"]:
             fields.append(self.entry_time_name)
 
-        if self.form.need_payement:
-            fields.append('Payement')
+        if self.form.need_payment:
+            fields.append('Payment')
 
         return fields
 
@@ -374,7 +374,7 @@ class EntriesForm(forms.Form):
         for field_entry in field_entries:
             if field_entry.entry_id != current_entry:
 
-                if field_entry.entry.form.need_payement:
+                if field_entry.entry.form.need_payment:
                     bonus = 1
                 else:
                     bonus = 0
@@ -390,8 +390,8 @@ class EntriesForm(forms.Form):
                 if include_entry_time:
                     current_row[-1 - (bonus)] = field_entry.entry.entry_time
 
-                if field_entry.entry.form.need_payement:
-                    current_row[-1] = field_entry.entry.get_payement().is_valid
+                if field_entry.entry.form.need_payment:
+                    current_row[-1] = field_entry.entry.get_payment().is_valid
             field_value = field_entry.value or ""
             # Check for filter.
             field_id = field_entry.field_id

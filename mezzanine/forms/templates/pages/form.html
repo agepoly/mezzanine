@@ -10,8 +10,8 @@
         {{ page.form.response|richtext_filters|safe }}
     {% endeditable %}
 
-    {% if page.form.need_payement %}
-        <a href="{% url 'mezzanine.forms.views.start_payement' request.GET.entry_id %}" class="btn btn-primary">{% trans "Go to payement" %}</a>
+    {% if page.form.need_payment %}
+        <a href="{% url 'mezzanine.forms.views.start_payment' request.GET.entry_id %}" class="btn btn-primary">{% trans "Go to payment" %}</a>
     {% endif %}
 
 {% else %}

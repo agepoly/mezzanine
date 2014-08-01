@@ -6,17 +6,17 @@
 {% block main %}
 {{ block.super }}
 
-<h1>Payement</h1>
+<h1>Payment</h1>
 
 <div class="alert alert-error">
     {% if error == "form_full" %}
         Form full
     {% endif %}
-    {% if error == "payement_started" %}
-        Payement started
+    {% if error == "payment_started" %}
+        Payment started
     {% endif %}
-    {% if error == "payement_already_ok" %}
-        Payement already ok
+    {% if error == "payment_already_ok" %}
+        Payment already ok
     {% endif %}
 </div>
 

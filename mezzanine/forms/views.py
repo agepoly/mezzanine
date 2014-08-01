@@ -18,42 +18,42 @@ from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 
 
-from .models import Form, FormEntry, Payement
+from .models import Form, FormEntry, Payment
 
 from polybanking import PolyBanking
 
 
-def start_payement(request, pk):
-    """Start payement for a form"""
+def start_payment(request, pk):
+    """Start payment for a form"""
 
     api = PolyBanking(settings.POLYBANKING_SERVER, settings.POLYBANKING_ID, settings.POLYBANKING_KEY_REQUEST, settings.POLYBANKING_KEY_IPN, settings.POLYBANKING_KEY_API)
 
     entry = get_object_or_404(FormEntry, pk=pk)
 
-    if not entry.form.need_payement:
+    if not entry.form.need_payment:
         raise Http404
 
-    payement = entry.get_payement()
+    payment = entry.get_payment()
 
     error = ''
 
-    if not entry.form.can_start_payement():
+    if not entry.form.can_start_payment():
         error = 'form_full'
 
-    if payement.started:
-        error = 'payement_started'
+    if payment.started:
+        error = 'payment_started'
 
-    if payement.is_valid:
-        error = 'payement_already_ok'
+    if payment.is_valid:
+        error = 'payment_already_ok'
 
     if not error:
-        error, url = api.new_transaction(str(entry.form.amount * 100), payement.reference())
+        error, url = api.new_transaction(str(entry.form.amount * 100), payment.reference())
 
     if error != 'OK':
         return render_to_response('forms/error.html', {'error': error}, context_instance=RequestContext(request))
     else:
-        payement.started = True
-        payement.save()
+        payment.started = True
+        payment.save()
         return HttpResponseRedirect(url)
 
 
@@ -66,11 +66,13 @@ def ipn(request):
 
     if ok:
 
-        payement = get_object_or_404(Payement, pk=ref.split('-')[-1])
-        payement.is_valid = status_ok
-        payement.save()
+        payment = get_object_or_404(Payment, pk=ref.split('-')[-1])
+        payment.is_valid = status_ok
+        payment.save()
 
         # TODO Send mail here
+
+
 
     return HttpResponse('')
 
