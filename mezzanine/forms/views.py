@@ -55,6 +55,7 @@ def start_payment(request, pk):
     else:
         payment.started = True
         payment.save()
+        request.session["current_payment"] = payment
         return HttpResponseRedirect(url)
 
 
@@ -102,7 +103,7 @@ def ipn(request):
 
 
 def result_ok(request):
-    return render_to_response('forms/payment_ok.html', {'final_confirmation_message': final_confirmation_message}, context_instance=RequestContext(request))
+    return render_to_response('forms/payment_ok.html', {'final_confirmation_message': request.session["current_payment"].entry.form.final_confirmation_message}, context_instance=RequestContext(request))
 
 
 def result_err(request):
