@@ -6,10 +6,11 @@
 {% block main %}
 {{ block.super }}
 
-<h1>Payment</h1>
+<h1>{% trans "Payment page" %}</h1>
 
 <div class="alert alert-success">
-    {{% trans "Paiement réussi !" %}}
+    <b>{% trans "Payment successfully done!" %}</b><br>
+    {% trans "Thank you for your payment, your registration is now confirmed." %}
 </div>
 
 <div>

@@ -82,7 +82,7 @@ def ipn(request):
 
         email_from = payment.entry.form.email_from or settings.DEFAULT_FROM_EMAIL
 
-        for field in payment.entry.fields.all():
+        for field in payment.entry.form.fields.all():
             if field.field_type == EMAIL:
                 email_to = payment.entry.fields.filter(field_id = field.id).first().value
 

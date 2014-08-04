@@ -6,26 +6,22 @@
 {% block main %}
 {{ block.super }}
 
-<h1>Payment</h1>
+<h1>{% trans "Payment page" %}</h1>
 
 <div class="alert alert-error">
 
-	error : ------------
-
 	{{error}}
-	<br>
-	<br>
-	------------------------
-	<br>
-	<br>
+
     {% if error == "form_full" %}
-        {% trans "Form full" %}
+        {% trans "Sorry, all the seats are unfortunately already taken to this subscription." %}
     {% endif %}
     {% if error == "payment_started" %}
-        {% trans "Payment started" %}
+        {% trans "Payment for this subscription is already in progress." %}
     {% endif %}
     {% if error == "payment_already_ok" %}
-        {% trans "Payment already ok" %}
+        {% trans "Payment for this subscription has already been made." %}
+    {% else %}
+    	{% trans "Unknown error" %} : {{error}}
     {% endif %}
 </div>
 
