@@ -9,6 +9,15 @@
 <h1>Payment</h1>
 
 <div class="alert alert-error">
+
+	error : ------------
+
+	{{error}}
+	<br>
+	<br>
+	------------------------
+	<br>
+	<br>
     {% if error == "form_full" %}
         {% trans "Form full" %}
     {% endif %}
@@ -19,5 +28,6 @@
         {% trans "Payment already ok" %}
     {% endif %}
 </div>
+
 
 {% endblock %}
