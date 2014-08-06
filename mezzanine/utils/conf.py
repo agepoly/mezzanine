@@ -97,6 +97,19 @@ def set_dynamic_settings(s):
     storage = "django.contrib.messages.storage.cookie.CookieStorage"
     s.setdefault("MESSAGE_STORAGE", storage)
 
+    # If required, add django-modeltranslation for both tests and deployment
+    if not s.get("USE_MODELTRANSLATION", False):
+        remove("INSTALLED_APPS", "modeltranslation")
+    else:
+        try:
+            __import__("modeltranslation")
+        except ImportError:
+            pass
+        else:
+            # Force i18n so we are assured that modeltranslation is active
+            s["USE_I18N"] = True
+            append("INSTALLED_APPS", "modeltranslation")
+
     if s["TESTING"]:
         # Following bits are work-arounds for some assumptions that
         # Django 1.5's tests make.
@@ -131,6 +144,9 @@ def set_dynamic_settings(s):
         debug_mw = "debug_toolbar.middleware.DebugToolbarMiddleware"
         append("MIDDLEWARE_CLASSES", debug_mw)
 
+        # Ensure debug_toolbar is before modeltranslation to avoid
+        # races for configuration.
+        move("INSTALLED_APPS", "debug_toolbar", 0)
     # If compressor installed, ensure it's configured and make
     # Mezzanine's settings available to its offline context,
     # since jQuery is configured via a setting.

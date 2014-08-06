@@ -70,3 +70,10 @@ class ConfTests(TestCase):
                                value="A unicode value")
         settings.use_editable()
         self.assertEqual(settings.BYTES_TEST_SETTING, b"A unicode value")
+
+    def test_modeltranslation_configuration(self):
+        """
+        Test that modeltranslation is properly configured in settings.
+        """
+        if settings.USE_MODELTRANSLATION:
+            self.assertTrue(settings.USE_I18N)

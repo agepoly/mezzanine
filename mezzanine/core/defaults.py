@@ -371,6 +371,7 @@ register_setting(
         "appended to the content of the HTML title tags on every page."),
     editable=True,
     default="Mezzanine",
+    translatable=True,
 )
 
 register_setting(
@@ -379,6 +380,7 @@ register_setting(
     description=_("A tag line that will appear at the top of all pages."),
     editable=True,
     default=_("An open source content management platform."),
+    translatable=True,
 )
 
 register_setting(
@@ -564,4 +566,12 @@ register_setting(
         "automatically added to the ``INSTALLED_APPS`` setting."),
     editable=False,
     default=True,
+)
+
+register_setting(
+    name="USE_MODELTRANSLATION",
+    description=_("If ``True``, the django-modeltranslation application will "
+        "be automatically added to the ``INSTALLED_APPS`` setting."),
+    editable=False,
+    default=False,
 )

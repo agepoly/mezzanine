@@ -16,6 +16,11 @@ from mezzanine.core.models import (Orderable, SitePermission,
 from mezzanine.utils.urls import admin_url
 from mezzanine.utils.models import get_user_model
 
+if settings.USE_MODELTRANSLATION:
+    from django.utils.datastructures import SortedDict
+    from django.utils.translation import activate, get_language
+    from modeltranslation.admin import (TranslationAdmin,
+                                        TranslationInlineModelAdmin)
 
 User = get_user_model()
 
@@ -31,7 +36,16 @@ class DisplayableAdminForm(ModelForm):
         return content
 
 
-class DisplayableAdmin(admin.ModelAdmin):
+class BaseTranslationModelAdmin(settings.USE_MODELTRANSLATION and
+        TranslationAdmin or admin.ModelAdmin):
+    """
+    Abstract class used to factorize the switch between translation
+    and no-translation class logic.
+    """
+    pass
+
+
+class DisplayableAdmin(BaseTranslationModelAdmin):
     """
     Admin class for subclasses of the abstract ``Displayable`` model.
     """
@@ -64,6 +78,24 @@ class DisplayableAdmin(admin.ModelAdmin):
         except AttributeError:
             pass
 
+    def save_model(self, request, obj, form, change):
+        """
+        Save model for every language so that field auto-population
+        is done for every each of it.
+        """
+        super(DisplayableAdmin, self).save_model(request, obj, form, change)
+        if settings.USE_MODELTRANSLATION:
+            lang = get_language()
+            for code in SortedDict(settings.LANGUAGES):
+                if code != lang:  # Already done
+                    try:
+                        activate(code)
+                    except:
+                        pass
+                    else:
+                        obj.save()
+            activate(lang)
+
 
 class BaseDynamicInlineAdmin(object):
     """
@@ -84,18 +116,34 @@ class BaseDynamicInlineAdmin(object):
                 fields = self.model._meta.fields
                 exclude = self.exclude or []
                 fields = [f.name for f in fields if f.editable and
-                    f.name not in exclude and not isinstance(f, AutoField)]
+                    f.name not in exclude and not isinstance(f, AutoField) and
+                    not hasattr(f, "translated_field")]
             if "_order" in fields:
                 del fields[fields.index("_order")]
                 fields.append("_order")
             self.fields = fields
 
 
-class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin, admin.TabularInline):
+def getInlineBaseClass(cls):
+    if settings.USE_MODELTRANSLATION:
+        class InlineBase(TranslationInlineModelAdmin, cls):
+            """
+            Abstract class that mimics django-modeltranslation's
+            Translation{Tabular,Stacked}Inline. Used as a placeholder
+            for future improvement.
+            """
+            pass
+        return InlineBase
+    return cls
+
+
+class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin,
+                                getInlineBaseClass(admin.TabularInline)):
     template = "admin/includes/dynamic_inline_tabular.html"
 
 
-class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin, admin.StackedInline):
+class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin,
+                                getInlineBaseClass(admin.StackedInline)):
     template = "admin/includes/dynamic_inline_stacked.html"
 
     def __init__(self, *args, **kwargs):
