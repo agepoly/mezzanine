@@ -81,7 +81,7 @@
 </div>
 {% endif %}
 {% endnevercache %}
-
+<br><br>
 <h1>{% block title %}{% endblock %}</h1>
 
 <ul class="breadcrumb">
@@ -95,13 +95,7 @@
 <div class="container">
 <div class="row">
 
-<div class="col-md-2 left">
-    {% block left_panel %}
-    <div class="panel panel-default tree">{% page_menu "pages/menus/tree.html" %}</div>
-    {% endblock %}
-</div>
-
-<div class="col-md-7 middle">
+<div class="col-md-9 middle">
     {% block main %}{% endblock %}
 </div>
 
@@ -137,6 +131,8 @@
     <a href="http://www.djangoproject.com">Django</a>
     <span class="separator">|</span>
     {% trans "Theme by" %} <a target="_blank" href="http://getbootstrap.com">Bootstrap</a>
+    <span class="separator">|</span>
+    {% trans "Made by" %} Yann Beaud
     {% ifinstalled mezzanine.mobile %}
     <span class="separator">|</span>
     <a href="{% url "set_device" "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site" %}</a>
