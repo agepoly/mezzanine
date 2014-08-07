@@ -16,6 +16,7 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
+from email_extras.utils import send_mail_template
 from .fields import EMAIL
 
 
@@ -84,7 +85,7 @@ def ipn(request):
 
         for field in payment.entry.form.fields.all():
             if field.field_type == EMAIL:
-                email_to = payment.entry.fields.filter(field_id = field.id).first().value
+                email_to = payment.entry.fields.filter(field_id=field.id).first().value
 
 
         if email_to and payment.entry.form.send_email:
@@ -94,6 +95,7 @@ def ipn(request):
         if email_to:
             # Add the email entered as a Reply-To header
             headers = {'Reply-To': email_to}
+
         email_copies = split_addresses(payment.entry.form.email_copies)
         if email_copies:
             send_mail_template(subject, "email/form_response_copies_paid",
