@@ -16,7 +16,8 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
-from email_extras.utils import send_mail_template
+from mezzanine.utils.email import split_addresses, send_mail_template
+from mezzanine.utils.views import is_spam
 from .fields import EMAIL
 
 
