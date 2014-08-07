@@ -82,7 +82,7 @@ class Field(Orderable):
         max_length=settings.FORMS_FIELD_MAX_LENGTH)
     placeholder_text = models.CharField(_("Placeholder Text"), blank=True,
         max_length=100, editable=settings.FORMS_USE_HTML5)
-    help_text = models.CharField(_("Help text"), blank=True, max_length=300)
+    help_text = models.CharField(_("Help text"), blank=True, max_length=400)
 
     objects = FieldManager()
 
