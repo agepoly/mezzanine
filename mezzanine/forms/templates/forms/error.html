@@ -10,15 +10,11 @@
 
 <div class="alert alert-error">
 
-	{{error}}
-
     {% if error == "form_full" %}
-        {% trans "Sorry, all the seats are unfortunately already taken to this subscription." %}
-    {% endif %}
-    {% if error == "payment_started" %}
+        {% trans "Sorry, registration are closed, all the seats are unfortunately already taken for this subscription." %}
+    {% elif error == "payment_started" %}
         {% trans "Payment for this subscription is already in progress." %}
-    {% endif %}
-    {% if error == "payment_already_ok" %}
+    {% elif error == "payment_already_ok" %}
         {% trans "Payment for this subscription has already been made." %}
     {% else %}
     	{% trans "Unknown error" %} : {{error}}
