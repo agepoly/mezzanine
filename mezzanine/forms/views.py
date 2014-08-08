@@ -16,6 +16,9 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
+from mezzanine.forms.forms import FormForForm
+from mezzanine.forms.signals import form_invalid, form_valid
+from mezzanine.pages.page_processors import processor_for
 from mezzanine.utils.email import split_addresses, send_mail_template
 from mezzanine.utils.views import is_spam
 from .fields import EMAIL
@@ -77,7 +80,7 @@ def ipn(request):
         entry = payment.entry
 
         subject = payment.entry.form.final_confirmation_subject
-        
+
         context = {
             "message": payment.entry.form.final_confirmation_email,
         }
@@ -86,7 +89,7 @@ def ipn(request):
 
         for field in payment.entry.form.fields.all():
             if field.field_type == EMAIL:
-                email_to = payment.entry.fields.filter(field_id=field.id).first().value
+                email_to = payment.entry.fields.filter(field_id = field.id).first().value
 
 
         if email_to and payment.entry.form.send_email:
@@ -96,12 +99,10 @@ def ipn(request):
         if email_to:
             # Add the email entered as a Reply-To header
             headers = {'Reply-To': email_to}
-
         email_copies = split_addresses(payment.entry.form.email_copies)
         if email_copies:
             send_mail_template(subject, "email/form_response_copies_paid",
-                               email_from, email_copies, context,
-                               attachments=attachments, headers=headers)
+                               email_from, email_copies, context, headers=headers)
     return HttpResponse('')
 
 
