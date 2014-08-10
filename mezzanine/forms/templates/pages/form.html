@@ -1,5 +1,7 @@
 {% extends "pages/page.html" %}
 
+{% load staticfiles %}
+
 {% load mezzanine_tags %}
 {% load i18n %}
 
@@ -27,6 +29,7 @@
         {% fields_for form %}
         <div class="form-actions">
             <input class="btn btn-primary btn-lg" type="submit" value="{{ page.form.button_text }}">
+            <span id="pleasewait" style="display:none;"><img src="{% static "img/ajax-loader.gif" %}"> {% trans "Sumitting your form, please wait." %}</span>
         </div>
     </form>
 {% endif %}
@@ -39,4 +42,15 @@
 <script>
 $(function() {$('.mezzanine-form :input:visible:enabled:first').focus();});
 </script>
+
+<script type="text/javascript">
+    $(function() {
+        $('form').submit(function() {
+            $(':submit').attr('disabled', 'disabled');
+            $('#pleasewait').show();
+        });
+    });
+</script>
+
 {% endblock %}
+
