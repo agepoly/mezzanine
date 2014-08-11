@@ -1,7 +1,7 @@
 {% extends "email/base.txt" %}
 
 {% block main %}{% if message %}
-{{ message }}
+{{ message|linebreaksbr }}
 
 {% endif %}{% for field, value in fields %}
 {{ field }}: {{ value|safe }}
