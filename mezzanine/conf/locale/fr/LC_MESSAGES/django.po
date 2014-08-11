@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-10 19:34+0200\n"
-"PO-Revision-Date: 2012-08-31 20:47+0000\n"
+"PO-Revision-Date: 2014-08-11 14:58+0100\n"
 "Last-Translator: Jérôme Place <djayp83@hotmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
 "language/fr/)\n"
@@ -20,6 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.6.7\n"
 
 #: accounts/defaults.py:21
 msgid "Minimum length for passwords"
@@ -381,9 +382,8 @@ msgid "Comments"
 msgstr ""
 
 #: blog/models.py:26 generic/models.py:32 generic/models.py:134
-#, fuzzy
 msgid "Rating"
-msgstr "Paramètre"
+msgstr "Evalutation"
 
 #: blog/models.py:27
 msgid "Featured Image"
@@ -1628,52 +1628,56 @@ msgstr ""
 
 #: forms/templates/email/form_response.html:15
 msgid "Link to payment page in case you lost it."
-msgstr ""
+msgstr "Lien vers la page de paiement au cas ou vous le perdriez."
 
 #: forms/templates/forms/error.html:9
 #: forms/templates/forms/payment_error.html:9
 #: forms/templates/forms/payment_ok.html:9
 msgid "Payment page"
-msgstr ""
+msgstr "Page de paiement"
 
 #: forms/templates/forms/error.html:14
 msgid ""
 "Sorry, registration are closed, all the seats are unfortunately already "
 "taken for this subscription."
 msgstr ""
+"Désolé, les inscriptions sont closes. Toutes les places disponibles sont "
+"malheureusement déjà prise pour "
 
 #: forms/templates/forms/error.html:16
 msgid "Payment for this subscription is already in progress."
-msgstr ""
+msgstr "Le paiement pour cette inscription est déjà en cours."
 
 #: forms/templates/forms/error.html:18
 msgid "Payment for this subscription has already been made."
-msgstr ""
+msgstr "Le paiement pour cette inscription à déjà été effectué."
 
 #: forms/templates/forms/error.html:20
 msgid "Unknown error"
-msgstr ""
+msgstr "Erreur inconnue"
 
 #: forms/templates/forms/payment_error.html:12
 msgid ""
 "An error ocured with your payment, please try again or contact us by email."
 msgstr ""
+"Un problème est survenu avec votre paiement, merci de réessayer ou de nous "
+"contacter par email."
 
 #: forms/templates/forms/payment_ok.html:12
 msgid "Payment successfully done!"
-msgstr ""
+msgstr "Paiement effectué avec succès!"
 
 #: forms/templates/forms/payment_ok.html:13
 msgid "Thank you for your payment, your registration is now confirmed."
-msgstr ""
+msgstr "Merci pour votre paiement, votre inscription est maintenant confirmée."
 
 #: forms/templates/pages/form.html:16
 msgid "Go to payment"
-msgstr ""
+msgstr "Aller à la page de paiement"
 
 #: forms/templates/pages/form.html:32
 msgid "Sumitting your form, please wait."
-msgstr ""
+msgstr "Formulaire en cours d'envoi, merci de patienter."
 
 #: galleries/models.py:46
 msgid "Zip import"
@@ -1857,9 +1861,8 @@ msgid "Rater"
 msgstr ""
 
 #: generic/models.py:135
-#, fuzzy
 msgid "Ratings"
-msgstr "Paramètres"
+msgstr "Evalutations"
 
 #: generic/views.py:65
 msgid ""
