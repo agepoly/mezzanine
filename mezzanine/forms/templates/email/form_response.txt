@@ -1,4 +1,5 @@
 {% extends "email/base.txt" %}
+{% load i18n %}
 
 {% block main %}{% if message %}
 {{ message|linebreaksbr }}
