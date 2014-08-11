@@ -21,6 +21,7 @@ from mezzanine.forms.signals import form_invalid, form_valid
 from mezzanine.pages.page_processors import processor_for
 from mezzanine.utils.email import split_addresses, send_mail_template
 from mezzanine.utils.views import is_spam
+from django.core.mail import send_mail
 from .fields import EMAIL
 
 
@@ -103,6 +104,10 @@ def ipn(request):
         if email_copies:
             send_mail_template(subject, "email/form_response_copies_paid",
                                email_from, email_copies, context, headers=headers)
+
+        send_mail('AGEPoly :: ' + subject, 'Bonjour,\n\nMerci pour ton paiement. Ton inscription à bien été enregistrée et est maintenant confirmée. \n\nMerci et bonne journée.', email_from, [email_to], fail_silently=False)
+
+
     return HttpResponse('')
 
 
