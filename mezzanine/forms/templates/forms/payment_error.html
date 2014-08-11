@@ -9,7 +9,10 @@
 <h1>{% trans "Payment page" %}</h1>
 
 <div class="alert alert-error">
-    {% trans "An error ocured with your payment, please try again or contact us by email." %}
+	<p>{% trans "An error ocured with your payment, please try again or contact us by email." %}</p>
+	<p>
+		<a href="{% url 'mezzanine.forms.views.start_payment' request.GET.entry_id %}" class="btn btn-primary">{% trans "Here is the link to the payment page in case you lost it or you get a problem during the payment process" %}</a>
+	</p>
 </div>
 
 {% endblock %}

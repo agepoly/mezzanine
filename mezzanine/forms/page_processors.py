@@ -47,6 +47,7 @@ def form_processor(request, page):
             "fields": fields,
             "message": page.form.email_message,
             "request": request,
+            "page": page,
         }
 
         url += '&entry_id=' + str(entry.pk)

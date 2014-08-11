@@ -4,16 +4,17 @@
 
 {% block main %}
 {% if message %}<p>{{ message }}</p>{% endif %}
+<p>
+    {% if page.form.need_payment %}
+        <a href="{% url 'mezzanine.forms.views.start_payment' request.GET.entry_id %}" class="btn btn-primary">{% trans "Here is the link to the payment page in case you lost it or you get a problem during the payment process" %}</a>
+    {% endif %}
+</p>
 <table border="0">
 {% for field, value in fields %}
 <tr>
     <td><b>{{ field }}:</b></td>
     <td>{{ value|linebreaks }}</td>
 </tr>
-
-    {% if page.form.need_payment %}
-        <a href="{% url 'mezzanine.forms.views.start_payment' request.GET.entry_id %}" class="btn btn-primary">{% trans "Link to payment page in case you lost it." %}</a>
-    {% endif %}
 
 {% endfor %}
 </table>
