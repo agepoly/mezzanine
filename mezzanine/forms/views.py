@@ -105,7 +105,7 @@ def ipn(request):
             send_mail_template(subject, "email/form_response_copies_paid",
                                email_from, email_copies, context, headers=headers)
 
-        send_mail('AGEPoly :: ' + subject, 'Bonjour,\n\nMerci pour ton paiement. Ton inscription à bien été enregistrée et est maintenant confirmée. \n\nMerci et bonne journée.', email_from, [email_to], fail_silently=False)
+        send_mail(u'AGEPoly :: ' + subject, u'Bonjour,\n\nMerci pour ton paiement. Ton inscription à bien été enregistrée et est maintenant confirmée. \n\nMerci et bonne journée.', email_from, [email_to], fail_silently=False)
 
 
     return HttpResponse('')
