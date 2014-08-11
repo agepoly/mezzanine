@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-10 19:34+0200\n"
+"POT-Creation-Date: 2014-08-11 16:56+0200\n"
 "PO-Revision-Date: 2012-08-26 13:23+0000\n"
 "Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
@@ -1622,8 +1622,12 @@ msgstr ""
 msgid "No entries to display"
 msgstr ""
 
-#: forms/templates/email/form_response.html:15
-msgid "Link to payment page in case you lost it."
+#: forms/templates/email/form_response.html:9
+#: forms/templates/email/form_response.txt:7
+#: forms/templates/forms/payment_error.html:14
+msgid ""
+"Here is the link to the payment page in case you lost it or you get a "
+"problem during the payment process"
 msgstr ""
 
 #: forms/templates/forms/error.html:9
@@ -1634,8 +1638,8 @@ msgstr ""
 
 #: forms/templates/forms/error.html:14
 msgid ""
-"Sorry, registration are closed, all the seats are unfortunately already "
-"taken for this subscription."
+"Sorry, registrations are closed, all the seats are unfortunately already "
+"taken for this event."
 msgstr ""
 
 #: forms/templates/forms/error.html:16

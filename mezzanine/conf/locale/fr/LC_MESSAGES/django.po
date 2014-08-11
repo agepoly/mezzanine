@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-10 19:34+0200\n"
+"POT-Creation-Date: 2014-08-11 16:56+0200\n"
 "PO-Revision-Date: 2014-08-11 16:45+0100\n"
 "Last-Translator: Jérôme Place <djayp83@hotmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
@@ -1626,9 +1626,13 @@ msgstr ""
 msgid "No entries to display"
 msgstr ""
 
-#: forms/templates/email/form_response.html:15
-msgid "Link to payment page in case you lost it."
-msgstr "Lien vers la page de paiement au cas ou vous le perdriez."
+#: forms/templates/email/form_response.html:9
+#: forms/templates/email/form_response.txt:7
+#: forms/templates/forms/payment_error.html:14
+msgid ""
+"Here is the link to the payment page in case you lost it or you get a "
+"problem during the payment process"
+msgstr ""
 
 #: forms/templates/forms/error.html:9
 #: forms/templates/forms/payment_error.html:9
@@ -1637,9 +1641,10 @@ msgid "Payment page"
 msgstr "Page de paiement"
 
 #: forms/templates/forms/error.html:14
+#, fuzzy
 msgid ""
-"Sorry, registration are closed, all the seats are unfortunately already "
-"taken for this subscription."
+"Sorry, registrations are closed, all the seats are unfortunately already "
+"taken for this event."
 msgstr ""
 "Désolé, les inscriptions sont closes. Toutes les places disponibles sont "
 "malheureusement déjà prise pour "
@@ -2172,3 +2177,6 @@ msgstr ""
 #: twitter/templates/twitter/tweets.html:7
 msgid "Recent Tweets"
 msgstr ""
+
+#~ msgid "Link to payment page in case you lost it."
+#~ msgstr "Lien vers la page de paiement au cas ou vous le perdriez."
