@@ -44,8 +44,6 @@ def start_payment(request, pk):
 
     error = ''
 
-    url = api.new_transaction(str(entry.form.amount * 100), payment.reference())
-
     if not entry.form.can_start_payment():
         error = 'form_full'
 
