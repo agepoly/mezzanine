@@ -44,11 +44,14 @@ def start_payment(request, pk):
 
     error = ''
 
+    url = api.new_transaction(str(entry.form.amount * 100), payment.reference())
+
     if not entry.form.can_start_payment():
         error = 'form_full'
 
     if payment.started:
-        error = 'payment_started'
+        request.session["current_payment"] = payment.id
+        return HttpResponseRedirect(payment.redirect_url)
 
     if payment.is_valid:
         error = 'payment_already_ok'
@@ -59,6 +62,7 @@ def start_payment(request, pk):
     if error != 'OK':
         return render_to_response('forms/error.html', {'error': error}, context_instance=RequestContext(request))
     else:
+        payment.redirect_url = url
         payment.started = True
         payment.save()
         request.session["current_payment"] = payment.id
