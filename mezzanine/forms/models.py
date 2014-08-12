@@ -168,6 +168,7 @@ class Payment(models.Model):
     entry = models.ForeignKey(FormEntry)
     is_valid = models.BooleanField(default=False)
     started = models.BooleanField(default=False)
+    redirect_url = models.CharField(max_length=255, null=True)
 
     def reference(self):
         """Return a reference for the payment"""

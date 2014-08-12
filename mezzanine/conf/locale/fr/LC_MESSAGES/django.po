@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Mezzanine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-08-11 16:56+0200\n"
-"PO-Revision-Date: 2014-08-11 16:45+0100\n"
+"PO-Revision-Date: 2014-08-11 17:07+0100\n"
 "Last-Translator: Jérôme Place <djayp83@hotmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/mezzanine/"
 "language/fr/)\n"
@@ -1449,7 +1449,7 @@ msgstr ""
 
 #: forms/models.py:32
 msgid "Subject"
-msgstr ""
+msgstr "Sujet"
 
 #: forms/models.py:33 twitter/models.py:146
 msgid "Message"
@@ -1464,41 +1464,43 @@ msgstr ""
 
 #: forms/models.py:38
 msgid "User need to pay"
-msgstr ""
+msgstr "L'utilisateur doit payer"
 
 #: forms/models.py:38
 msgid ""
 "Forms must be confirmed with a payment. IMPORTANT : You need to add an email "
 "field to the form!"
 msgstr ""
+"Le formulaire doit être confirmer avec un paiement. IMPORTANT : You devez "
+"ajouter un champs Email dans le formulaire."
 
 #: forms/models.py:39
 msgid "Amount"
-msgstr ""
+msgstr "Montant"
 
 #: forms/models.py:39
 msgid "In CHF"
-msgstr ""
+msgstr "en CHF"
 
 #: forms/models.py:40
 msgid "Maximum payed form entries"
-msgstr ""
+msgstr "Nombre maximum d'enregistrement payant accepté"
 
 #: forms/models.py:40
 msgid "Only used with payment"
-msgstr ""
+msgstr "Seulement utiliser dans s'il y a a un paiement à effectuer"
 
 #: forms/models.py:42
 msgid "Final confirmation message"
-msgstr ""
+msgstr "Message de confirmation final"
 
 #: forms/models.py:42
 msgid "Final text after the user has paid for the form"
-msgstr ""
+msgstr "Texte final après que l'utilisateur ait payé."
 
 #: forms/models.py:43
 msgid "Final confirmation email"
-msgstr ""
+msgstr "Email final de confirmation"
 
 #: forms/models.py:43
 msgid ""
@@ -1633,6 +1635,8 @@ msgid ""
 "Here is the link to the payment page in case you lost it or you get a "
 "problem during the payment process"
 msgstr ""
+"Voici un lien vers la page de paiement dans le cas ou vous le perdriez ou si "
+"vous avez un problème pendant le processus de paiement"
 
 #: forms/templates/forms/error.html:9
 #: forms/templates/forms/payment_error.html:9
@@ -2176,7 +2180,7 @@ msgstr ""
 
 #: twitter/templates/twitter/tweets.html:7
 msgid "Recent Tweets"
-msgstr ""
+msgstr "Tweets récents"
 
 #~ msgid "Link to payment page in case you lost it."
 #~ msgstr "Lien vers la page de paiement au cas ou vous le perdriez."
