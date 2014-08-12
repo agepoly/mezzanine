@@ -216,7 +216,7 @@ class FormForForm(forms.ModelForm):
             field_key = "field_%s" % field.id
             value = self.cleaned_data[field_key]
             if value and self.fields[field_key].widget.needs_multipart_form:
-                value = fs.save(join("forms", str(uuid4()), value.name), value)
+                value = fs.save(join("forms", str(uuid4()), (value.name).encode('utf-8')), value)
             if isinstance(value, list):
                 value = ", ".join([v.strip() for v in value])
             if field.id in entry_fields:
