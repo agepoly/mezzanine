@@ -19,6 +19,8 @@ from mezzanine.forms import fields
 from mezzanine.forms.models import FormEntry, FieldEntry
 from mezzanine.utils.email import split_addresses as split_choices
 
+from django.utils.encoding import smart_str
+
 
 fs = FileSystemStorage(location=settings.FORMS_UPLOAD_ROOT)
 
@@ -216,7 +218,12 @@ class FormForForm(forms.ModelForm):
             field_key = "field_%s" % field.id
             value = self.cleaned_data[field_key]
             if value and self.fields[field_key].widget.needs_multipart_form:
-                value = fs.save(join("forms", str(uuid4()), (value.name).encode('utf-8')), value)
+                import re
+                value_name = smart_str(value.name)
+                value_name = re.sub(r'[éè]', 'e', value_name)
+                value_name = re.sub(r'[à]', 'a', value_name)
+                value_name = re.sub(r'[^-A-Za-z0-9_.]', '_', value_name)
+                value = fs.save(join("forms", str(uuid4()), value_name), value)
             if isinstance(value, list):
                 value = ", ".join([v.strip() for v in value])
             if field.id in entry_fields:
