@@ -5,7 +5,7 @@
 {{ message|linebreaksbr }}
 
 {% if page.form.need_payment %}
-    <a href="{% url 'mezzanine.forms.views.start_payment' entry_id %}" class="btn btn-primary">{% trans "Here is the link to the payment page in case you lost it or you get a problem during the payment process" %}</a>
+    <a href="https://agepoly.ch{% url 'mezzanine.forms.views.start_payment' entry_id %}" class="btn btn-primary">{% trans "Here is the link to the payment page in case you lost it or you get a problem during the payment process" %}</a>
 {% endif %}
 
 {% endif %}{% for field, value in fields %}
