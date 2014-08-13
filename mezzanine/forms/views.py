@@ -47,7 +47,7 @@ def start_payment(request, pk):
     if not entry.form.can_start_payment():
         error = 'form_full'
 
-    if payment.started:
+    if payment.started and payment.is_valid:
         request.session["current_payment"] = payment.id
         return HttpResponseRedirect(payment.redirect_url)
 
