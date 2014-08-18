@@ -170,6 +170,9 @@ class Payment(models.Model):
     started = models.BooleanField(default=False)
     redirect_url = models.CharField(max_length=255, null=True)
 
+    def __unicode__(self):
+        return '%s %s' % ('OK' if self.is_valid else 'Not ok', self.reference())
+
     def reference(self):
         """Return a reference for the payment"""
 

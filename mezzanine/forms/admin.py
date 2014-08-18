@@ -20,7 +20,7 @@ from django.utils.translation import ungettext, ugettext_lazy as _
 from mezzanine.conf import settings
 from mezzanine.core.admin import TabularDynamicInlineAdmin
 from mezzanine.forms.forms import EntriesForm
-from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry
+from mezzanine.forms.models import Form, Field, FormEntry, FieldEntry, Payment
 from mezzanine.pages.admin import PageAdmin
 from mezzanine.utils.urls import admin_url, slugify
 
@@ -147,3 +147,27 @@ class FormAdmin(PageAdmin):
         return response
 
 admin.site.register(Form, FormAdmin)
+
+
+
+class FieldEntryInline(admin.TabularInline):
+    model = FieldEntry
+    extra = 0
+    can_delete = False
+
+class Paymentnline(admin.TabularInline):
+    model = Payment
+    extra = 0
+    can_delete = False
+
+
+class FormEntryAdmin(admin.ModelAdmin):
+    list_display = ('form', 'entry_time', 'get_payment')
+
+    list_filter = ('form',)
+
+    ordering = ('-id',)
+
+    inlines = [FieldEntryInline, Paymentnline]
+
+admin.site.register(FormEntry, FormEntryAdmin)
