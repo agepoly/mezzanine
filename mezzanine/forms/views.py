@@ -88,24 +88,26 @@ def ipn(request):
             "message": payment.entry.form.final_confirmation_email,
         }
 
-        email_from = payment.entry.form.email_from or settings.DEFAULT_FROM_EMAIL
+        if status_ok:
 
-        for field in payment.entry.form.fields.all():
-            if field.field_type == EMAIL:
-                email_to = payment.entry.fields.filter(field_id=field.id).first().value
+            email_from = payment.entry.form.email_from or settings.DEFAULT_FROM_EMAIL
+
+            for field in payment.entry.form.fields.all():
+                if field.field_type == EMAIL:
+                    email_to = payment.entry.fields.filter(field_id=field.id).first().value
 
 
-        if email_to and payment.entry.form.send_email:
-            send_mail_template(subject, "email/form_response_paid", email_from,
-                               email_to, context)
-        headers = None
-        if email_to:
-            # Add the email entered as a Reply-To header
-            headers = {'Reply-To': email_to}
-        email_copies = split_addresses(payment.entry.form.email_copies)
-        if email_copies:
-            send_mail_template(subject, "email/form_response_copies_paid",
-                               email_from, email_copies, context, headers=headers)
+            if email_to and payment.entry.form.send_email:
+                send_mail_template(subject, "email/form_response_paid", email_from,
+                                   email_to, context)
+            headers = None
+            if email_to:
+                # Add the email entered as a Reply-To header
+                headers = {'Reply-To': email_to}
+            email_copies = split_addresses(payment.entry.form.email_copies)
+            if email_copies:
+                send_mail_template(subject, "email/form_response_copies_paid",
+                                   email_from, email_copies, context, headers=headers)
 
 
     return HttpResponse('')
