@@ -176,4 +176,4 @@ class Payment(models.Model):
     def reference(self):
         """Return a reference for the payment"""
 
-        return "mezzanine-form-%s" % (self.pk, )
+        return "mezzanine-payment-%s-(Form-ID-%s)" % (self.pk, self.entry.form.pk)

@@ -19,7 +19,10 @@
 </div>
 {% endblock %}
 
+
+
 {% block content %}
+<h2>{{ original.title }} / {% trans "Form ID" %}: {{ original.id }}</h2>
 <div id="content-main">
     <form method="post">
     {% csrf_token %}
@@ -66,8 +69,9 @@
             <th><input type="checkbox" class="include-all"></th>
             {% endif %}
             {% for column in entries_form.columns %}
-            <th{% if forloop.last %} class="last"{% endif %}>{{ column }}</th>
+            <th>{{ column }}</th>
             {% endfor %}
+            <th class="last">{% trans "Entry ID" %}</th>
         </tr>
     {% endif %}
         <tr class="{% cycle on,off %}">
@@ -78,10 +82,13 @@
             {% endif %}
             {% for field in row %}
                 {% if not forloop.first %}
-                <td{% if forloop.last %} class="last"{% endif %}>{{ field }}</td>
+                <td>{{ field }}</td>
                 {% endif %}
+                
 
             {% endfor %}
+            <td class="last">{{ row.0 }}</td>
+
         </tr>
     {% if forloop.last %}
     </table>
