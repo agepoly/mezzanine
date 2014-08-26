@@ -59,7 +59,7 @@ def start_payment(request, pk):
             if field.field_type == EMAIL:
                 email_to = payment.entry.fields.filter(field_id=field.id).first().value
 
-        error, url = api.new_transaction(str(entry.form.amount * 100), payment.reference(), unicode(entry.form) + " - " unicode(email_to))
+        error, url = api.new_transaction(str(entry.form.amount * 100), payment.reference(), unicode(entry.form) + " - " + unicode(email_to))
 
     if error != 'OK':
         return render_to_response('forms/error.html', {'error': error}, context_instance=RequestContext(request))
