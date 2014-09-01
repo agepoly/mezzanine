@@ -152,7 +152,7 @@ admin.site.register(Form, FormAdmin)
 
 class FieldEntryInline(admin.TabularInline):
     model = FieldEntry
-    extra = 0
+    extra = 1
     can_delete = False
 
 class Paymentnline(admin.TabularInline):
