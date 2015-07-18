@@ -396,7 +396,7 @@ class Orderable(with_metaclass(OrderableBase, models.Model)):
         """
         Set the initial ordering value.
         """
-        if self._order is None:
+        if self._order is None or self._order == "":
             lookup = self.with_respect_to()
             lookup["_order__isnull"] = False
             concrete_model = base_concrete_model(Orderable, self)
